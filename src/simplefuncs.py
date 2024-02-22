@@ -49,8 +49,8 @@ def print_tree(num_levels: int) -> None:
 def fib_number_recursion(num: int) -> int:
     """
     Recursive implementation of fibonacci numbers.
-    :param num: corresponds to n th fibonacci number
-    :return: n th fibonacci number
+    :param num: corresponds to nth fibonacci number
+    :return: nth fibonacci number
     """
     if num < 0:
         raise ValueError
@@ -63,8 +63,8 @@ def fib_number_recursion(num: int) -> int:
 def fib_number_cyclus(num: int) -> int:
     """
     Cyclic implementation of fibonacci numbers.
-    :param num: corresponds to n th fibonacci number
-    :return: n th fibonacci number
+    :param num: corresponds to nth fibonacci number
+    :return: nth fibonacci number
     """
     if num < 0:
         raise ValueError
@@ -74,8 +74,46 @@ def fib_number_cyclus(num: int) -> int:
 
     f_n2 = 0
     f_n1 = 1
-    for index in range(2, num + 1):
+    for _ in range(2, num + 1):
         f_n = f_n1 + f_n2
         f_n2 = f_n1
         f_n1 = f_n
     return f_n
+
+
+def fib_number_close(num: int) -> int:
+    """
+    Implementation of fibonacci numbers using closed form.
+    :param num: corresponds to nth fibonacci number
+    :return: nth fibonacci number
+    """
+    if num < 0:
+        raise ValueError
+
+    if num < 2:
+        return num
+
+    sqrt5 = math.sqrt(5)
+    phi = 0.5 * (1.0 + sqrt5)
+    psi = 0.5 * (1.0 - sqrt5)
+
+    return int(round((phi ** num - psi ** num) / sqrt5))
+
+
+def min_of_list(lst: list[float]) -> tuple[float, int]:
+    """
+    Find minimum value of list together with index of the minimum.
+    :param lst: non-empty list of values
+    :return: minimum of list, index of the minimum
+    """
+    if not lst:
+        raise ValueError
+
+    min_value = float('inf')
+    min_idx = -1
+    for idx, value in enumerate(lst):
+        if min_value > value:
+            min_value = value
+            min_idx = idx
+
+    return min_value, min_idx

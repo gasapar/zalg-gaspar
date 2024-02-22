@@ -8,6 +8,11 @@ import src.simplefuncs as smfc
 * max 3 neomluvene absence
 * cviceni streda a/nebo ctvrtek
 """
+"""
+overeni vstupu 
+vypocitat const
+dosadit do vzorce
+"""
 
 
 if __name__ == '__main__':
@@ -18,8 +23,11 @@ if __name__ == '__main__':
 
     smfc.print_tree(5)
 
-    f_rec = smfc.fib_number_recursion(20)
-    f_cyc = smfc.fib_number_cyclus(20)
+    n_value = 20
+    f_rec = smfc.fib_number_recursion(n_value)
+    f_cyc = smfc.fib_number_cyclus(n_value)
+    f_cls = smfc.fib_number_close(n_value)
 
     print(f_rec)
     print(f_cyc)
+    print(f_cls)
