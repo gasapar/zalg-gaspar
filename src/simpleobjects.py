@@ -21,10 +21,12 @@ class Vector2d:
 
     def normalize(self) -> None:
         """
-        Normalizes the vector, making it have norm equal to one.
+        Normalizes the vector, making it to have norm equal to one.
         :return: None
         """
         vec_norm = self.norm()
+        if vec_norm == 0.0:
+            raise ZeroDivisionError
         self.x /= vec_norm
         self.y /= vec_norm
 
@@ -47,7 +49,7 @@ class Vector2d:
         if value == 0.0:
             raise ZeroDivisionError
 
-        return self.multiply(1/value)
+        return self.multiply(1.0 / value)
 
     def copy(self):
         """
