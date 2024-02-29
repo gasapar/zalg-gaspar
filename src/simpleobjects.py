@@ -9,7 +9,7 @@ class Vector2d:
         self.x = x
         self.y = y
 
-    def print(self):
+    def print(self) -> None:
         print("(" + str(self.x) + ", " + str(self.y) + ")")
 
     def norm(self) -> float:
@@ -40,7 +40,7 @@ class Vector2d:
         y_new = self.y * value
         return Vector2d(x_new, y_new)
 
-    def divide(self, value: float):
+    def divide(self, value: float) -> "Vector2d":
         """
         Divides the vector by the given value and returns new vector.
         :param value: scala nonzero value
@@ -51,9 +51,101 @@ class Vector2d:
 
         return self.multiply(1.0 / value)
 
-    def copy(self):
+    def copy(self) -> "Vector2d":
         """
         Returns a copy of the vector.
         :return: new vector
         """
         return Vector2d(self.x, self.y)
+
+    def plus(self, vector: "Vector2d") -> "Vector2d":
+        """
+        Adds the given vector to the current vector and returns new vector.
+        :param vector:
+        :return: new vector
+        """
+        x_new = vector.x + self.x
+        y_new = vector.y + self.y
+        return Vector2d(x_new, y_new)
+
+    def minus(self, vector: "Vector2d") -> "Vector2d":
+        """
+        Subtracts the given vector to the current vector and returns new vector.
+        :param vector:
+        :return: new vector
+        """
+        return self.plus(vector.multiply(-1))
+
+    def distance(self, vector: "Vector2d") -> float:
+        """
+        Calculates the distance between two vectors.
+        :param vector:
+        :return: distance
+        """
+        return self.minus(vector).norm()
+
+
+class Circle:
+    """
+    Represents a circle on the plane.
+    """
+    def __init__(self, center: Vector2d = None, radius: float = None):
+
+        if center is None:
+            center = Vector2d()
+        if radius is None:
+            radius = float("nan")
+        else:
+            if radius < 0.0:
+                raise ValueError
+
+        self.center: Vector2d = center
+        self.radius: float = radius
+
+    def circumference(self) -> float:
+        """
+        Calculates the circumference of the circle.
+        :return:
+        """
+        return 2.0 * self.radius * math.pi
+
+    def area(self) -> float:
+        """
+        Calculates the area inside the circle.
+        :return:
+        """
+        return math.pi * self.radius * self.radius
+
+    def distance_from_center(self, point: Vector2d) -> float:
+        """
+        Calculates the distance between the center and the circle and a point.
+        :param point:
+        :return: distance
+        """
+        return self.center.distance(point)
+
+    def is_inside(self, point: Vector2d) -> bool:
+        """
+        Checks if the point is inside the circle.
+        :param point:
+        :return:
+        """
+        return self.distance_from_center(point) < self.radius
+
+    def is_on_boundary(self, point: Vector2d) -> bool:
+        """
+        Checks if the point is on the boundary of the circle.
+        :param point:
+        :return:
+        """
+        return self.distance_from_center(point) == self.radius
+
+    def nearest_point_on(self, point: Vector2d) -> Vector2d:
+        """
+        Finds the nearest point on the circle from the given point.
+        :param point:
+        :return: closest point on the circle
+        """
+
+        # TODO: Homework
+        return Vector2d()

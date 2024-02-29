@@ -8,11 +8,6 @@ import src.simplefuncs as smfc
 * max 3 neomluvene absence
 * cviceni streda a/nebo ctvrtek
 """
-"""
-overeni vstupu 
-vypocitat const
-dosadit do vzorce
-"""
 
 
 if __name__ == '__main__':
