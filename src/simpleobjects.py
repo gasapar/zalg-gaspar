@@ -6,11 +6,20 @@ class Vector2d:
     Represents a 2D cartesian vector.
     """
     def __init__(self, x: float = float("nan"), y: float = float("nan")):
-        self.x = x
-        self.y = y
+        self.x: float = x
+        self.y: float = y
+
+    def to_string(self) -> str:
+        """
+        Returns a string representation of the vector.
+        """
+        return "(" + str(self.x) + ", " + str(self.y) + ")"
 
     def print(self) -> None:
-        print("(" + str(self.x) + ", " + str(self.y) + ")")
+        """
+        Prints the vector to the command line.
+        """
+        print(self.to_string())
 
     def norm(self) -> float:
         """
@@ -43,7 +52,7 @@ class Vector2d:
     def divide(self, value: float) -> "Vector2d":
         """
         Divides the vector by the given value and returns new vector.
-        :param value: scala nonzero value
+        :param value: scalar nonzero value
         :return: new vector
         """
         if value == 0.0:
@@ -83,6 +92,14 @@ class Vector2d:
         :return: distance
         """
         return self.minus(vector).norm()
+
+    def is_equal(self, vector: "Vector2d") -> bool:
+        """
+        Checks if two vectors are the same.
+        :param vector:
+        :return: True if the vector are the same, false otherwise
+        """
+        return self.x == vector.x and self.y == vector.y
 
 
 class Circle:
@@ -128,7 +145,7 @@ class Circle:
         """
         Checks if the point is inside the circle.
         :param point:
-        :return:
+        :return: True if it is inside the circle else False
         """
         return self.distance_from_center(point) < self.radius
 
@@ -147,5 +164,26 @@ class Circle:
         :return: closest point on the circle
         """
 
-        # TODO: Homework
-        return Vector2d()
+        # control if input is the center
+        if self.center.is_equal(point):
+            raise Exception
+
+        direction = point.minus(self.center)
+        direction.normalize()
+
+        return direction.multiply(self.radius).plus(self.center)
+
+    def to_string(self) -> str:
+        """
+        Converts the object to a string.
+        :return: a string
+        """
+        radius_string = str(self.radius)
+        center_string = self.center.to_string()
+        return "[" + radius_string + "; " + center_string + "]"
+
+    def print(self) -> None:
+        """
+        Prints the object to the console.
+        """
+        print(self.to_string())

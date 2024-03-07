@@ -7,5 +7,7 @@ if __name__ == '__main__':
     radius = 1.0
 
     circ = smobj.Circle(vec1, radius)
-
     vec3 = circ.nearest_point_on(vec2)
+
+    vec3.print()
+    circ.print()
