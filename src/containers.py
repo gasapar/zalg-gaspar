@@ -9,10 +9,36 @@ class ListElement:
 
     def is_last(self) -> bool:
         """
-        Checks if the element point to None and if therefore the last in the list.
-        :return: True if the element point to None
+        Checks if the element is last or not.
+        @return: returns true if the element is last, false otherwise
         """
         return self.next is None
+
+    def to_string(self) -> str:
+        """
+        Converts the element to the string.
+        @return: text representation of the element
+        """
+        return str(self.value)
+
+
+class LinkedListIterator:
+    """
+    This class implements iterator for class LinkedList.
+    """
+    def __init__(self, head):
+        self.current = head
+
+    def __iter__(self):
+        return self
+
+    def __next__(self):
+        if not self.current:
+            raise StopIteration
+        else:
+            current_item = self.current
+            self.current = self.current.next
+            return current_item
 
 
 class LinkedList:
@@ -23,16 +49,25 @@ class LinkedList:
         self.head: ListElement = None
         self.tail: ListElement = None
 
+    def __iter__(self) -> LinkedListIterator:
+        """
+        Iterates through the linked list.
+        @return: returns iterator
+        """
+        return LinkedListIterator(self.head)
+
     def is_empty(self) -> bool:
         """
         Checks if the list is empty.
-        :return: True if the list is empty
+        @return: true if the list is empty, false otherwise
         """
         return self.head is None and self.tail is None
 
     def add_to_empty(self, value: float) -> None:
         """
         Adds a value to the empty list.
+        @param value: new value to be added to the list
+        @return: None
         """
         new_element = ListElement(value=value)
         self.head = new_element
@@ -41,8 +76,9 @@ class LinkedList:
     def add_first(self, value: float) -> None:
         """
         Adds a value to the beginning of the list.
+        @param value: new value to be added to the list
+        @return: None
         """
-
         if self.is_empty():
             self.add_to_empty(value)
             return
@@ -51,6 +87,11 @@ class LinkedList:
         self.head = new_element
 
     def add_last(self, value: float) -> None:
+        """
+        Adds a value to the end of the list.
+        @param value: new value to be added to the list
+        @return: None
+        """
         if self.is_empty():
             self.add_to_empty(value)
 
@@ -58,8 +99,111 @@ class LinkedList:
         self.tail.next = new_element
         self.tail = new_element
 
+    def to_string(self) -> str:
+        """
+        Returns a string representation of the linked list
+        @return: text representation of the linked list
+        """
+        full_string = "["
+        # iterator is used, no need to use while cycles
+        for current_item in self:
+            full_string += current_item.to_string()
+            if not current_item.is_last():
+                full_string += ", "
 
+        full_string += "]"
+        return full_string
 
+    def print(self) -> None:
+        """
+        Prints the linked list.
+        @return: None
+        """
+        print(self.to_string())
 
+    def remove_first(self) -> None:
+        """
+        Removes the first element from the linked list.
+        @return: None
+        """
+        if self.is_empty():
+            return
 
+        # case when only a single item is in the list
+        if self.head == self.tail:
+            self.head = None
+            self.tail = None
+            return
 
+        self.head = self.head.next
+        return
+
+    def sum(self) -> float:
+        """
+        Returns the sum of the values in the linked list.
+        @return: total sum of the values in the linked list
+        """
+        if self.is_empty():
+            return float("nan")
+
+        total_sum = 0.0
+        for item in self:
+            total_sum += item.value
+        return total_sum
+
+    def prod(self) -> float:
+        """
+        Returns the product of the values in the linked list.
+        @return: product of the values in the linked list
+        """
+        if self.is_empty():
+            return float("nan")
+
+        total_sum = 1.0
+        for item in self:
+            total_sum *= item.value
+        return total_sum
+
+    def min(self) -> float:
+        """
+        Returns the minimal value of the elements in the list.
+        @return: minimum value of the elements in the list
+        """
+        if self.is_empty():
+            return float("nan")
+
+        current_min = float("inf")
+        for item in self:
+            if item.value < current_min:
+                current_min = item.value
+        return current_min
+
+    def max(self) -> float:
+        """
+        Returns the maximal value of the elements in the list.
+        @return: maximum value of the elements in the list
+        """
+        if self.is_empty():
+            return float("nan")
+
+        current_max = -float("inf")
+        for item in self:
+            if item.value > current_max:
+                current_max = item.value
+        return current_max
+
+    def mean(self) -> float:
+        """
+        Returns arithmetic mean of the elements in the list.
+        @return: mean value of the elements in the list
+        """
+        if self.is_empty():
+            return float("nan")
+
+        item_counter = 0
+        total_sum = 0.0
+        for item in self:
+            total_sum += item.value
+            item_counter += 1
+
+        return total_sum / item_counter

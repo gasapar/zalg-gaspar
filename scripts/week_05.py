@@ -9,9 +9,10 @@ if __name__ == '__main__':
     linked_list.add_first(10)
     linked_list.add_first(-8)
 
-    linked_list.add_last(3)
-    linked_list.add_last(17)
+    linked_list.print()
 
-    linked_list.print()
-    linked_list.remove_first()
-    linked_list.print()
+    sum_value = linked_list.sum()
+    product_value = linked_list.prod()
+    min_value = linked_list.min()
+    max_value = linked_list.max()
+    mean_value = linked_list.mean()

@@ -4,10 +4,10 @@ import math
 def real_quadratic_roots(a: float, b: float, c: float) -> tuple[float, float]:
     """
     Calculates real roots of quadratic equation: a*x**2 + b*x + c
-    :param a: nonzero quadratic term
-    :param b: linear term
-    :param c: constant term
-    :return: roots of quadratic equation
+    @param a: nonzero quadratic term
+    @param b: linear term
+    @param c: constant term
+    @return: roots of quadratic equation
     """
     # check if is quadratic
     if a == 0.0:
@@ -30,9 +30,9 @@ def real_quadratic_roots(a: float, b: float, c: float) -> tuple[float, float]:
 
 def print_tree(num_levels: int) -> None:
     """
-    Prints tree into command line.
-    :param num_levels: number of levels of the tree
-    :return: None
+    Prints tree text art into command line.
+    @param num_levels: number of levels of the tree
+    @return: None
     """
     if num_levels < 0:
         raise ValueError
@@ -49,8 +49,8 @@ def print_tree(num_levels: int) -> None:
 def fib_number_recursion(num: int) -> int:
     """
     Recursive implementation of fibonacci numbers.
-    :param num: corresponds to nth fibonacci number
-    :return: nth fibonacci number
+    @param num: corresponds to nth fibonacci number
+    @return: nth fibonacci number
     """
     if num < 0:
         raise ValueError
@@ -63,8 +63,8 @@ def fib_number_recursion(num: int) -> int:
 def fib_number_cyclus(num: int) -> int:
     """
     Cyclic implementation of fibonacci numbers.
-    :param num: corresponds to nth fibonacci number
-    :return: nth fibonacci number
+    @param num: corresponds to nth fibonacci number
+    @return: nth fibonacci number
     """
     if num < 0:
         raise ValueError
@@ -84,8 +84,8 @@ def fib_number_cyclus(num: int) -> int:
 def fib_number_close(num: int) -> int:
     """
     Implementation of fibonacci numbers using closed form.
-    :param num: corresponds to nth fibonacci number
-    :return: nth fibonacci number
+    @param num: corresponds to nth fibonacci number
+    @return: nth fibonacci number
     """
     if num < 0:
         raise ValueError
@@ -103,8 +103,8 @@ def fib_number_close(num: int) -> int:
 def min_of_list(lst: list[float]) -> tuple[float, int]:
     """
     Find minimum value of list together with index of the minimum.
-    :param lst: non-empty list of values
-    :return: minimum of list, index of the minimum
+    @param lst: non-empty list of values
+    @return: minimum of list, index of the minimum
     """
     if not lst:
         raise ValueError
