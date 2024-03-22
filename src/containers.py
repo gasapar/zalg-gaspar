@@ -101,7 +101,7 @@ class LinkedList:
 
     def to_string(self) -> str:
         """
-        Returns a string representation of the linked list
+        Returns a string representation of the linked list.
         @return: text representation of the linked list
         """
         full_string = "["
@@ -146,7 +146,7 @@ class LinkedList:
         if self.is_empty():
             return float("nan")
 
-        total_sum = 0.0
+        total_sum: float = 0.0
         for item in self:
             total_sum += item.value
         return total_sum
@@ -159,7 +159,7 @@ class LinkedList:
         if self.is_empty():
             return float("nan")
 
-        total_sum = 1.0
+        total_sum: float = 1.0
         for item in self:
             total_sum *= item.value
         return total_sum
@@ -172,7 +172,7 @@ class LinkedList:
         if self.is_empty():
             return float("nan")
 
-        current_min = float("inf")
+        current_min: float = float("inf")
         for item in self:
             if item.value < current_min:
                 current_min = item.value
@@ -186,7 +186,7 @@ class LinkedList:
         if self.is_empty():
             return float("nan")
 
-        current_max = -float("inf")
+        current_max: float = -float("inf")
         for item in self:
             if item.value > current_max:
                 current_max = item.value
@@ -200,10 +200,102 @@ class LinkedList:
         if self.is_empty():
             return float("nan")
 
-        item_counter = 0
-        total_sum = 0.0
+        item_counter: int = 0
+        total_sum: float = 0.0
         for item in self:
             total_sum += item.value
             item_counter += 1
 
         return total_sum / item_counter
+
+    def add_after(self, value: float, item: ListElement) -> None:
+        """
+        Adds a value to the list after the given element.
+        @param value: new value to be added
+        @param item: element after which to add the value
+        @return: None
+        """
+        if item == self.tail:
+            self.add_last(value)
+            return
+
+        if self.is_empty():
+            raise Exception
+
+        new_element = ListElement(value=value, next=item.next)
+        item.next = new_element
+
+    def is_sorted(self) -> bool:
+        """
+        Returns whether the list is sorted or not.
+        @return: True if the list is sorted, False otherwise
+        """
+
+        if self.is_empty():
+            # empty list is always sorter
+            return True
+
+        if self.head == self.tail:
+            # list with a single value is always sorter
+            return True
+
+        for item in self:
+            # must check that item.next is not None and then compares the pair
+            if item.next and item.value > item.next.value:
+                return False
+        return True
+
+    def add_sorted(self, value: float) -> None:
+        """
+        Adds a value to the sorted list so that the list remains sorted.
+        @param value: new value to be added
+        @return: None
+        """
+        if self.is_empty():
+            self.add_to_empty(value)
+            return
+
+        if not self.is_sorted():
+            # cannot add a new value to the unsorted list
+            raise Exception
+
+        if value >= self.tail.value:
+            self.add_last(value)
+            return
+
+        if value <= self.head.value:
+            self.add_first(value)
+            return
+
+        for item in self:
+            if item.next and item.value <= value <= item.next.value:
+                self.add_after(value, item)
+                return
+
+    def single_bubble(self) -> int:
+        """
+        Returns the number of switched value pairs in single bubble sort run.
+        @return: number of switched pairs
+        """
+        bubble_counter: int = 0
+        for item in self:
+            if item.next and item.value > item.next.value:
+                bubble_counter += 1
+                # switch values
+                item.value, item.next.value = item.next.value, item.value
+        return bubble_counter
+
+    def bubble_sort(self) -> None:
+        """
+        Sorts the list using bubble sort approach.
+        @return: None
+        """
+        if self.is_empty():
+            return
+
+        if self.head == self.tail:
+            return
+
+        counter: int = 1
+        while counter != 0:
+            counter = self.single_bubble()
