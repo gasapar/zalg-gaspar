@@ -26,17 +26,17 @@ class LinkedListIterator:
     """
     This class implements iterator for class LinkedList.
     """
-    def __init__(self, head):
-        self.current = head
+    def __init__(self, head: ListElement):
+        self.current: ListElement = head
 
     def __iter__(self):
         return self
 
-    def __next__(self):
+    def __next__(self) -> ListElement:
         if not self.current:
             raise StopIteration
         else:
-            current_item = self.current
+            current_item: ListElement = self.current
             self.current = self.current.next
             return current_item
 
@@ -46,8 +46,8 @@ class LinkedList:
     This class represents a linked list.
     """
     def __init__(self):
-        self.head: ListElement = None
-        self.tail: ListElement = None
+        self.head: ListElement | None = None
+        self.tail: ListElement | None = None
 
     def __iter__(self) -> LinkedListIterator:
         """
@@ -104,7 +104,7 @@ class LinkedList:
         Returns a string representation of the linked list.
         @return: text representation of the linked list
         """
-        full_string = "["
+        full_string: str = "["
         # iterator is used, no need to use while cycles
         for current_item in self:
             full_string += current_item.to_string()

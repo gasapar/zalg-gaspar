@@ -35,7 +35,7 @@ class Vector2d:
         Normalizes the vector, making it to have norm equal to one.
         :return: None
         """
-        vec_norm = self.norm()
+        vec_norm: float = self.norm()
         if vec_norm == 0.0:
             raise ZeroDivisionError
         self.x /= vec_norm
@@ -47,9 +47,9 @@ class Vector2d:
         @param value: scalar value to multiply the vector with
         @return: new vector
         """
-        x_new = self.x * value
-        y_new = self.y * value
-        return Vector2d(x_new, y_new)
+        x_new: float = self.x * value
+        y_new: float = self.y * value
+        return Vector2d(x=x_new, y=y_new)
 
     def divide(self, value: float) -> "Vector2d":
         """
@@ -67,7 +67,7 @@ class Vector2d:
         Returns a copy of the vector.
         @return: new vector containing the same coordinates as the current vector
         """
-        return Vector2d(self.x, self.y)
+        return Vector2d(x=self.x, y=self.y)
 
     def plus(self, vector: "Vector2d") -> "Vector2d":
         """
@@ -75,9 +75,9 @@ class Vector2d:
         @param vector:
         @return: new vector
         """
-        x_new = vector.x + self.x
-        y_new = vector.y + self.y
-        return Vector2d(x_new, y_new)
+        x_new: float = vector.x + self.x
+        y_new: float = vector.y + self.y
+        return Vector2d(x=x_new, y=y_new)
 
     def minus(self, vector: "Vector2d") -> "Vector2d":
         """
@@ -166,11 +166,11 @@ class Circle:
         @return: closest point on the circle
         """
 
-        # control if input is the center
+        # control if input point is the center
         if self.center.is_equal(point):
             raise Exception
 
-        direction = point.minus(self.center)
+        direction: Vector2d = point.minus(self.center)
         direction.normalize()
 
         return direction.multiply(self.radius).plus(self.center)
@@ -180,8 +180,8 @@ class Circle:
         Converts the circle object to its string representation.
         @return: a string representation of the circle object
         """
-        radius_string = str(self.radius)
-        center_string = self.center.to_string()
+        radius_string: str = str(self.radius)
+        center_string: str = self.center.to_string()
         return "[" + radius_string + "; " + center_string + "]"
 
     def print(self) -> None:
