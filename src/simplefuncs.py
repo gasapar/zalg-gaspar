@@ -13,18 +13,18 @@ def real_quadratic_roots(a: float, b: float, c: float) -> tuple[float, float]:
     if a == 0.0:
         raise ValueError
     # discriminant
-    d = b ** 2.0 - 4.0 * a * c
+    d: float = b ** 2.0 - 4.0 * a * c
     # single root case
     if d == 0.0:
-        x1 = -0.5 * b / a
+        x1: float = -0.5 * b / a
         return x1, x1
     # complex roots case
     if d < 0.0:
         return float('nan'), float('nan')
     # real root case
-    sqrt_d = math.sqrt(d)
-    x1 = 0.5 * (-b + sqrt_d) / a
-    x2 = 0.5 * (-b - sqrt_d) / a
+    sqrt_d: float = math.sqrt(d)
+    x1: float = 0.5 * (-b + sqrt_d) / a
+    x2: float = 0.5 * (-b - sqrt_d) / a
     return x1, x2
 
 
@@ -42,7 +42,7 @@ def print_tree(num_levels: int) -> None:
     for index in range(num_levels):
         num_spaces = num_levels - index - 1
         num_stars = 2 * index + 1
-        current_line = ' ' * num_spaces + '*' * num_stars
+        current_line = (' ' * num_spaces) + '*' * num_stars
         print(current_line)
 
 

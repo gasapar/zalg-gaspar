@@ -1,8 +1,8 @@
-
 class ListElement:
     """
     This class represents a single element in the linked list.
     """
+
     def __init__(self, value: float = float("nan"), next_element: "ListElement" = None):
         self.value: float = value
         self.next: "ListElement" = next_element
@@ -26,6 +26,7 @@ class LinkedListIterator:
     """
     This class implements iterator for class LinkedList.
     """
+
     def __init__(self, head: ListElement | None):
         self.current: ListElement | None = head
 
@@ -45,6 +46,7 @@ class LinkedList:
     """
     This class represents a linked list.
     """
+
     def __init__(self):
         self.head: ListElement | None = None
         self.tail: ListElement | None = None

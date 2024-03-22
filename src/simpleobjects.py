@@ -5,6 +5,7 @@ class Vector2d:
     """
     Represents a 2D cartesian vector.
     """
+
     def __init__(self, x: float = float("nan"), y: float = float("nan")):
         self.x: float = x
         self.y: float = y
@@ -28,7 +29,7 @@ class Vector2d:
         Returns the norm of the vector.
         @return: value of the norm
         """
-        return math.sqrt(self.x**2 + self.y**2)
+        return math.sqrt(self.x ** 2 + self.y ** 2)
 
     def normalize(self) -> None:
         """
@@ -108,6 +109,7 @@ class Circle:
     """
     Represents a circle on the plane.
     """
+
     def __init__(self, center: Vector2d = None, radius: float = None):
 
         if center is None:
