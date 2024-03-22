@@ -3,9 +3,9 @@ class ListElement:
     """
     This class represents a single element in the linked list.
     """
-    def __init__(self, value: float = float("nan"), next: "ListElement" = None):
+    def __init__(self, value: float = float("nan"), next_element: "ListElement" = None):
         self.value: float = value
-        self.next: "ListElement" = next
+        self.next: "ListElement" = next_element
 
     def is_last(self) -> bool:
         """
@@ -26,8 +26,8 @@ class LinkedListIterator:
     """
     This class implements iterator for class LinkedList.
     """
-    def __init__(self, head: ListElement):
-        self.current: ListElement = head
+    def __init__(self, head: ListElement | None):
+        self.current: ListElement | None = head
 
     def __iter__(self):
         return self
@@ -35,10 +35,10 @@ class LinkedListIterator:
     def __next__(self) -> ListElement:
         if not self.current:
             raise StopIteration
-        else:
-            current_item: ListElement = self.current
-            self.current = self.current.next
-            return current_item
+
+        current_item: ListElement = self.current
+        self.current = self.current.next
+        return current_item
 
 
 class LinkedList:
@@ -83,7 +83,7 @@ class LinkedList:
             self.add_to_empty(value)
             return
 
-        new_element = ListElement(value=value, next=self.head)
+        new_element = ListElement(value=value, next_element=self.head)
         self.head = new_element
 
     def add_last(self, value: float) -> None:
@@ -222,7 +222,7 @@ class LinkedList:
         if self.is_empty():
             raise Exception
 
-        new_element = ListElement(value=value, next=item.next)
+        new_element = ListElement(value=value, next_element=item.next)
         item.next = new_element
 
     def is_sorted(self) -> bool:
