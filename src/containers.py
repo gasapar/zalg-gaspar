@@ -227,6 +227,22 @@ class LinkedList:
         new_element = ListElement(value=value, next_element=item.next)
         item.next = new_element
 
+    def remove_after(self, item: ListElement) -> None:
+        """
+        Removes a value from the list after the given element.
+        @param item:
+        @return:
+        """
+        return
+
+    def find_value(self, value: float) -> ListElement | None:
+        """
+        Finds the item containing the given value.
+        @param value: The number to be found
+        @return: Element containing the value or None
+        """""
+        return None
+
     def is_sorted(self) -> bool:
         """
         Returns whether the list is sorted or not.
@@ -247,17 +263,18 @@ class LinkedList:
                 return False
         return True
 
-    def add_sorted(self, value: float) -> None:
+    def add_sorted(self, value: float, enforce_sorted: bool = False) -> None:
         """
         Adds a value to the sorted list so that the list remains sorted.
         @param value: new value to be added
+        @param enforce_sorted: whether to allow for adding a value into an unsorted list
         @return: None
         """
         if self.is_empty():
             self.add_to_empty(value)
             return
 
-        if not self.is_sorted():
+        if enforce_sorted and not self.is_sorted():
             # cannot add a new value to the unsorted list
             raise Exception
 
@@ -301,3 +318,251 @@ class LinkedList:
         counter: int = 1
         while counter != 0:
             counter = self.single_bubble()
+
+
+class BinaryNode:
+    """
+    Class representing a node in a binary tree.
+    """
+    def __init__(self, value: float = float("nan"), left=None, right=None, parent=None, tree=None):
+        self.left = left
+        self.right = right
+        self.value: float = value
+
+        self.parent = parent
+        self.tree: BinaryTree | None = tree
+
+    def is_leaf(self) -> bool:
+        """
+        Returns true if the node is a leaf node.
+        @return: True if the node is a leaf, False otherwise
+        """
+        return self.left is None and self.right is None
+
+    def is_root(self) -> bool:
+        """
+        Returns true if the node is a root in the tree.
+        @return: True if the node is a root, False otherwise
+        """
+        if self.tree is None:
+            return False
+        return self.tree.root is self
+
+    def add_value(self, value: float) -> None:
+        """
+        Adds a value to the subtree starting with this node.
+        @param value: number to add to the subtree
+        @return: None
+        """
+        if self.value == value:
+            # this value is already in the node/tree, do not add again
+            return
+
+        if value < self.value:
+            # adding to the left
+            if self.left is None:
+                # left is empty, create new node
+                self.left = BinaryNode(value=value, parent=self, tree=self.tree)
+            else:
+                # add to the subtree
+                self.left.add_value(value=value)
+        else:
+            # adding to the right
+            if self.right is None:
+                # right is empty, create new node
+                self.right = BinaryNode(value=value, parent=self, tree=self.tree)
+            else:
+                # add to the subtree
+                self.right.add_value(value=value)
+
+    def to_list(self) -> list[float]:
+        """
+        Converts the subtree to a list of numbers.
+        @return: List of sorted numbers from the tree
+        """
+        left_list = []
+        if self.left is not None:
+            left_list = self.left.to_list()
+
+        center_list = [self.value]
+
+        right_list = []
+        if self.right is not None:
+            right_list = self.right.to_list()
+
+        return left_list + center_list + right_list
+
+    def find_value(self, value: float):
+        """
+        Returns the node containing given value or None.
+        @param value:
+        @return: Binary node containing given value or None
+        """
+        if self.value == value:
+            return self
+
+        if value < self.value:
+            # search left
+            if self.left is None:
+                return None
+            else:
+                return self.left.find_value(value)
+        else:
+            # search right
+            if self.right is None:
+                return None
+            else:
+                return self.right.find_value(value)
+
+    def replace_child(self, child: "BinaryNode", new_child=None) -> None:
+        """
+        Replaces any children of this node with given new child.
+        @param child:
+        @param new_child:
+        @return:
+        """
+        if self.left is child:
+            self.left = new_child
+
+        if self.right is child:
+            self.right = new_child
+
+    def replace_at_parent(self, new_child=None) -> None:
+        """
+        Replaces itself at parent with new child.
+        @param new_child:
+        @return:
+        """
+        # special case: self is root
+        if self.is_root():
+            self.tree.root = new_child
+
+        if self.parent is None:
+            return
+        self.parent.replace_child(self, new_child)
+
+    def num_children(self) -> int:
+        """
+        Returns the number of valid children.
+        @return: Number of valid children: 0-2
+        """
+        counter = 0
+        if self.left:  # if self.left is not None
+            counter += 1
+        if self.right:
+            counter += 1
+        return counter
+
+    def get_single_child(self) -> "BinaryNode":
+        """
+        Get valid (not None) child.
+        @return:
+        """
+        if self.left:
+            return self.left
+        return self.right
+
+    def get_most_right(self) -> "BinaryNode":
+        """
+        Get most right (maximal) node in the subtree.
+        @return:
+        """
+        if self.right:
+            return self.right.get_most_right()
+        # no right child exists, self is the most right
+        return self
+
+
+class BinaryTree:
+    """
+    Binary tree containing numbers.
+    """
+    def __init__(self):
+        self.root: BinaryNode | None = None
+
+    def is_empty(self) -> bool:
+        """
+        Returns True if tree is empty, False otherwise.
+        @return:
+        """
+        return self.root is None
+
+    def add_value(self, value: float) -> None:
+        """
+        Adds given value into the tree.
+        @param value:
+        @return:
+        """
+        if self.is_empty():
+            self.root = BinaryNode(value=value, tree=self)
+            return
+
+        self.root.add_value(value=value)
+
+    def to_list(self) -> list[float]:
+        """
+        Converts the tree to a list of floats.
+        @return:
+        """
+        if self.is_empty():
+            return []
+
+        return self.root.to_list()
+
+    def print(self) -> None:
+        """
+        Prints the tree as a list of values.
+        @return:
+        """
+        print(self.to_list())
+
+    def find_value(self, value: float) -> BinaryNode | None:
+        """
+        Finds the value in the tree and returns the node if it exists.
+        @param value:
+        @return:
+        """
+        if self.is_empty():
+            return None
+
+        return self.root.find_value(value=value)
+
+    def remove_value(self, value: float) -> None:
+        """
+        Removes the value from the tree.
+        @param value:
+        @return: None
+        """
+        if self.is_empty():
+            return None
+
+        node = self.find_value(value=value)
+        if node is None:
+            # value is not in the tree
+            return
+
+        self.remove_node(node=node)
+
+    def remove_node(self, node: BinaryNode | None = None) -> None:
+        """
+        Removes the value from the given node from the tree.
+        @param node: node containing the value to be removed
+        @return: None
+        """
+        if node is None:
+            return
+
+        if node.is_leaf():
+            node.replace_at_parent(new_child=None)
+            return
+
+        if node.num_children() == 1:
+            child = node.get_single_child()
+            child.parent = node.parent
+            node.replace_at_parent(new_child=child)
+            return
+
+        # case: node has both children
+        to_replace = node.left.get_most_right()
+        node.value = to_replace.value
+        self.remove_node(node=to_replace)
