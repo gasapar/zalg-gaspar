@@ -1,3 +1,6 @@
+import weakref
+
+
 class ListElement:
     """
     This class represents a single element in the linked list.
@@ -96,6 +99,7 @@ class LinkedList:
         """
         if self.is_empty():
             self.add_to_empty(value)
+            return
 
         new_element = ListElement(value=value)
         self.tail.next = new_element
@@ -243,6 +247,20 @@ class LinkedList:
         """""
         return None
 
+    def remove_last(self) -> None:
+        """
+        Removes the last element of the list.
+        @return: None
+        """
+        return
+
+    def num_value(self, value: float) -> int:
+        """
+        Returns the number of elements with the given value.
+        @return: number of elements with the given value
+        """
+        return 0
+
     def is_sorted(self) -> bool:
         """
         Returns whether the list is sorted or not.
@@ -331,6 +349,46 @@ class BinaryNode:
 
         self.parent = parent
         self.tree: BinaryTree | None = tree
+
+    @property
+    def parent(self):
+        # getter
+        if self._parent is None:
+            return None
+        # from weak reference to full
+        parent = self._parent()
+        if parent is not None:
+            return parent
+        raise LookupError("Deleted parent reference")
+
+    @parent.setter
+    def parent(self, new_parent) -> None:
+        # setter
+        if new_parent is None:
+            self._parent = None
+            return
+
+        self._parent = weakref.ref(new_parent)
+
+    @property
+    def tree(self):
+        # getter
+        if self._tree is None:
+            return None
+        # from weak reference to full
+        tree = self._tree()
+        if tree is not None:
+            return tree
+        raise LookupError("Deleted tree reference")
+
+    @tree.setter
+    def tree(self, new_tree) -> None:
+        # setter
+        if new_tree is None:
+            self._tree = None
+            return
+
+        self._tree = weakref.ref(new_tree)
 
     def is_leaf(self) -> bool:
         """
