@@ -117,3 +117,95 @@ def min_of_list(lst: list[float]) -> tuple[float, int]:
             min_idx = idx
 
     return min_value, min_idx
+
+
+def coinChange(value: int, coins: list[int] | None = None) -> list[int]:
+    """
+    Return list of coins needed to make a change. Uses greedy algorithm.
+    :param value: value to be returned
+    :param coins: list of coins/banknotes
+    :return: list of used coins/banknotes
+    """
+    if value < 0:
+        raise ValueError
+
+    if value == 0:
+        return []
+
+    if not coins:
+        # default CZK denominations
+        coins: list[int] = [1, 2, 5, 10, 20, 50, 100, 200, 500, 1_000, 2_000, 5_000]
+    else:
+        coins.sort(reverse=True)
+
+    results: list[int] = []
+
+    for coin_value in coins:
+        coin_count: int = value // coin_value
+        if coin_count == 0:
+            continue
+        results += [coin_value] * coin_count
+        value -= coin_value * coin_count
+
+        if value == 0:
+            break
+    return results
+
+
+def find_value_in_ordered_list(value: float,
+                               all_values: list[float],
+                               index_first: int = 0,
+                               index_last: int | None = None
+                               ) -> int:
+    """
+    Finds the index off a value in an ordered list.
+    :param value: value to look for
+    :param all_values: list of values
+    :param index_first:
+    :param index_last:
+    :return: index of the value in all_values or -1 if nothing found
+    """
+    if not all_values:
+        return -1
+
+    if index_last is None:
+        index_last = len(all_values) - 1
+
+    if value < all_values[0]:
+        return -1
+    if value > all_values[-1]:
+        return -1
+
+    middle_index: int = (index_first + index_last) // 2
+
+    if all_values[middle_index] == value:
+        return middle_index
+
+    if index_first == index_last:
+        return -1
+
+    if value > all_values[middle_index]:
+        return find_value_in_ordered_list(value, all_values, middle_index + 1, index_last)
+    else:
+        return find_value_in_ordered_list(value, all_values, index_first, middle_index - 1)
+
+
+def print_as_matrix(lst: list[list[float]]) -> None:
+    """
+    Print a list of lists as a matrix.
+    :param lst: matrix passed as list of lists
+    :return: None
+    """
+    for row in lst:
+        print(row)
+
+
+def create_matrix(num_rows: int, num_columns: int, default_value: float = 0.0):
+    """
+    Create a matrix (list of lists) with fixed value.
+    :param num_rows:
+    :param num_columns:
+    :param default_value:
+    :return: matrix
+    """
+    return [[default_value] * num_columns for _ in range(num_rows)]
