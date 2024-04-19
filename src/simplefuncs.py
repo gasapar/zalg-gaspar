@@ -3,7 +3,7 @@ import math
 
 def real_quadratic_roots(a: float, b: float, c: float) -> tuple[float, float]:
     """
-    Calculates real roots of quadratic equation: a*x**2 + b*x + c
+    Calculates real roots of quadratic equation: a*x**2 + b*x + c.
     @param a: nonzero quadratic term
     @param b: linear term
     @param c: constant term
@@ -120,7 +120,7 @@ def min_of_list(lst: list[float]) -> tuple[float, int]:
     return min_value, min_idx
 
 
-def coinChange(value: int, coins: list[int] | None = None) -> list[int]:
+def coin_change(value: int, coins: list[int] | None = None) -> list[int]:
     """
     Return list of coins needed to make a change. Uses greedy algorithm.
     :param value: value to be returned
@@ -136,8 +136,8 @@ def coinChange(value: int, coins: list[int] | None = None) -> list[int]:
     if not coins:
         # default CZK denominations
         coins: list[int] = [1, 2, 5, 10, 20, 50, 100, 200, 500, 1_000, 2_000, 5_000]
-    else:
-        coins.sort(reverse=True)
+
+    coins.sort(reverse=True)
 
     results: list[int] = []
 
@@ -219,16 +219,16 @@ def allowed_knight_movements(idx1: int, idx2: int) -> tuple[list[int], list[int]
     :param idx2: knight second coordinate
     :return: two lists of allowed movements
     """
-    idx1_diffs = [-1, -2, -2, -1, 1, 2, 2, 1]
-    idx2_diffs = [2, 1, -1, -2, -2, -1, 1, 2]
+    idx1_diffs: list[int] = [-1, -2, -2, -1, 1, 2, 2, 1]
+    idx2_diffs: list[int] = [2, 1, -1, -2, -2, -1, 1, 2]
 
-    idx1_allowed = []
-    idx2_allowed = []
+    idx1_allowed: list[int] = []
+    idx2_allowed: list[int] = []
 
     for idx in range(len(idx1_diffs)):
         # possible new coordinates of the knight
-        idx1_new = idx1 + idx1_diffs[idx]
-        idx2_new = idx2 + idx2_diffs[idx]
+        idx1_new: int = idx1 + idx1_diffs[idx]
+        idx2_new: int = idx2 + idx2_diffs[idx]
 
         if -1 < idx1_new < 8 and -1 < idx2_new < 8:
             # new coordinates are inside the board
