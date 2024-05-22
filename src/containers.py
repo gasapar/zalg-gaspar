@@ -237,6 +237,7 @@ class LinkedList:
         @param item:
         @return:
         """
+        # TODO: homework
         return
 
     def find_value(self, value: float) -> ListElement | None:
@@ -244,7 +245,8 @@ class LinkedList:
         Finds the item containing the given value.
         @param value: The number to be found
         @return: Element containing the value or None
-        """""
+        """
+        # TODO: homework
         return None
 
     def remove_last(self) -> None:
@@ -252,6 +254,7 @@ class LinkedList:
         Removes the last element of the list.
         @return: None
         """
+        # TODO: homework
         return
 
     def num_value(self, value: float) -> int:
@@ -259,6 +262,7 @@ class LinkedList:
         Returns the number of elements with the given value.
         @return: number of elements with the given value
         """
+        # TODO: homework
         return 0
 
     def is_sorted(self) -> bool:
@@ -268,11 +272,11 @@ class LinkedList:
         """
 
         if self.is_empty():
-            # empty list is always sorter
+            # empty list is always sorted
             return True
 
         if self.head == self.tail:
-            # list with a single value is always sorter
+            # list with a single value is always sorted
             return True
 
         for item in self:
@@ -311,7 +315,7 @@ class LinkedList:
 
     def single_bubble(self) -> int:
         """
-        Returns the number of switched value pairs in single bubble sort run.
+        Returns the number of switched value-pairs in a single bubble sort run.
         @return: number of switched pairs
         """
         bubble_counter: int = 0
@@ -504,7 +508,7 @@ class BinaryNode:
         Returns the number of valid children.
         @return: Number of valid children: 0-2
         """
-        counter = 0
+        counter: int = 0
         if self.left:  # if self.left is not None
             counter += 1
         if self.right:

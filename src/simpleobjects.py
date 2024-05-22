@@ -100,7 +100,7 @@ class Vector2d:
         """
         Checks if two vectors are the same.
         @param vector:
-        @return: True if the vector are the same, false otherwise
+        @return: True if the vectors are the same, false otherwise
         """
         return self.x == vector.x and self.y == vector.y
 
@@ -139,7 +139,7 @@ class Circle:
 
     def distance_from_center(self, point: Vector2d) -> float:
         """
-        Calculates the distance between the center and the circle and a point.
+        Calculates the distance between the center of the circle and a point.
         @param point:
         @return: distance from the center of the circle
         """
@@ -168,7 +168,7 @@ class Circle:
         @return: closest point on the circle
         """
 
-        # control if input point is the center
+        # check if input point is the center
         if self.center.is_equal(point):
             raise Exception
 

@@ -3,7 +3,7 @@ import math
 
 def real_quadratic_roots(a: float, b: float, c: float) -> tuple[float, float]:
     """
-    Calculates real roots of quadratic equation: a*x**2 + b*x + c.
+    Calculates real roots of quadratic equation: a*x**2 + b*x + c = 0.
     @param a: nonzero quadratic term
     @param b: linear term
     @param c: constant term
@@ -21,7 +21,7 @@ def real_quadratic_roots(a: float, b: float, c: float) -> tuple[float, float]:
     # complex roots case
     if d < 0.0:
         return float('nan'), float('nan')
-    # real root case
+    # real roots case
     sqrt_d: float = math.sqrt(d)
     x1: float = 0.5 * (-b + sqrt_d) / a
     x2: float = 0.5 * (-b - sqrt_d) / a
@@ -30,7 +30,7 @@ def real_quadratic_roots(a: float, b: float, c: float) -> tuple[float, float]:
 
 def print_tree(num_levels: int) -> None:
     """
-    Prints tree text art into command line.
+    Prints tree text art into the command line.
     @param num_levels: number of levels of the tree
     @return: None
     """
@@ -40,9 +40,9 @@ def print_tree(num_levels: int) -> None:
         return
 
     for index in range(num_levels):
-        num_spaces = num_levels - index - 1
-        num_stars = 2 * index + 1
-        current_line = (' ' * num_spaces) + '*' * num_stars
+        num_spaces: int = num_levels - index - 1
+        num_stars: int = 2 * index + 1
+        current_line: str = (' ' * num_spaces) + '*' * num_stars
         print(current_line)
 
 
@@ -94,9 +94,9 @@ def fib_number_close(num: int) -> int:
     if num < 2:
         return num
 
-    sqrt5 = math.sqrt(5)
-    phi = 0.5 * (1.0 + sqrt5)
-    psi = 0.5 * (1.0 - sqrt5)
+    sqrt5: float = math.sqrt(5)
+    phi: float = 0.5 * (1.0 + sqrt5)
+    psi: float = 0.5 * (1.0 - sqrt5)
 
     return int(round((phi ** num - psi ** num) / sqrt5))
 
@@ -122,7 +122,7 @@ def min_of_list(lst: list[float]) -> tuple[float, int]:
 
 def coin_change(value: int, coins: list[int] | None = None) -> list[int]:
     """
-    Return list of coins needed to make a change. Uses greedy algorithm.
+    Returns a list of coins needed to make a change. Uses greedy algorithm.
     :param value: value to be returned
     :param coins: list of coins/banknotes
     :return: list of used coins/banknotes
@@ -159,8 +159,8 @@ def find_value_in_ordered_list(value: float,
                                index_last: int | None = None
                                ) -> int:
     """
-    Finds the index off a value in an ordered list.
-    :param value: value to look for
+    Finds the index of the value in an ordered list.
+    :param value: the value to look for
     :param all_values: list of values
     :param index_first:
     :param index_last:
@@ -170,7 +170,7 @@ def find_value_in_ordered_list(value: float,
         return -1
 
     if index_last is None:
-        index_last = len(all_values) - 1
+        index_last: int = len(all_values) - 1
 
     if value < all_values[0]:
         return -1
@@ -282,7 +282,7 @@ def minimal_knight_movements(
     return board
 
 
-def single_move(disk_number: int, from_place: str, to_place: str) -> None:
+def _single_move(disk_number: int, from_place: str, to_place: str) -> None:
     """
     Prints command to move a disk from one place to another.
     :param disk_number:
@@ -306,7 +306,7 @@ def hanoi_tower_moves(
     :param to_place:
     :param help_place:
     :param move_counter:
-    :return:
+    :return: number of moves executed
     """
     if disk_count < 1:
         return move_counter
@@ -318,7 +318,7 @@ def hanoi_tower_moves(
         help_place=to_place,
         move_counter=move_counter)
 
-    single_move(disk_count, from_place=from_place, to_place=to_place)
+    _single_move(disk_count, from_place=from_place, to_place=to_place)
     move_counter += 1
 
     move_counter = hanoi_tower_moves(
